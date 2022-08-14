@@ -9,23 +9,27 @@ struct IndividualWeatherView: View {
 
     var body: some View {
         Group {
-            if let currentWeather = viewModel.currentWeather {
+            switch viewModel.weatherViewState {
+            case .loading:
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
+                // TODO: Use a lottie animation here
+            case .error:
+                Text("An error occurred")
+            case .loaded(let currentWeather, let forecast):
                 ZStack {
-                    Color(viewModel.currentWeather?
-                        .weatherCondition.colorName ?? "sunnyColor")
+                    Color(currentWeather
+                        .weatherCondition.colorName)
                     VStack{
                         CurrentWeatherView(currentWeather: currentWeather)
+                        ForecastView(weatherForecast: forecast)
                         Spacer()
                     }
                 }
-            } else {
-                // TODO: Use a lottie animation here
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
             }
         }
         .onAppear {
-            viewModel.getCurrentWeather()
+            viewModel.getWeather()
         }
     }
 }
@@ -75,21 +79,34 @@ struct CurrentWeatherView: View {
         var body: some View {
             VStack {
                 Text(info)
-                    .foregroundColor(.white)
                 Text(description)
-                    .foregroundColor(.white)
             }
+            .foregroundColor(.white)
             .frame(maxWidth: .infinity)
         }
     }
 }
 
 struct ForecastView: View {
+    let weatherForecast: [WeatherForecastItem]
+
     var body: some View {
-        Text("")
+        ForEach(weatherForecast, id: \.forecastTime) { forecast in
+            HStack {
+                Text(forecast.forecastTime.day)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading)
+                Image(forecast.weatherCondition.iconName)
+                    .frame(width: 24, height: 24)
+                Text("\(Int(forecast.temperatures.temp))°")
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.trailing)
+            }
+            .padding(.top)
+            .foregroundColor(.white)
+        }
     }
 }
-
 
 struct IndividualWeatherView_Previews: PreviewProvider {
     static var previews: some View {

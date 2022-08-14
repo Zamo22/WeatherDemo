@@ -14,10 +14,12 @@ extension WeatherViewModel {
 
 fileprivate class PreviewClient: Client {
     func fetch<T: Decodable>(from endpoint: Endpoint, expectedType: T.Type) -> AnyPublisher<T, Error> {
-        // let model = try? JSONDecoder().decode(expectedType, from: data)
-        guard let path = Bundle.main.url(forResource: "currentWeather", withExtension: "json") ,
+        let resource = expectedType == CurrentWeather.self ? "currentWeather" : "weatherForecast"
+        let decoder = WeatherClient().decoder
+
+        guard let path = Bundle.main.url(forResource: resource, withExtension: "json") ,
               let data = try? Data(contentsOf: path),
-                let model = try? JSONDecoder().decode(expectedType, from: data) else {
+                let model = try? decoder.decode(expectedType, from: data) else {
             return Fail(error: NSError(domain: "", code: -1)).eraseToAnyPublisher()
         }
         return Just(model)

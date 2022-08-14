@@ -9,6 +9,7 @@ and could use a lot of work if used on a large scale */
 
 enum Endpoint {
     case currentWeather(coordinates: Coordinate)
+    case forecast(coordinates: Coordinate)
 }
 
 // MARK: - URL Construction
@@ -17,15 +18,23 @@ extension Endpoint {
         switch self {
         case .currentWeather:
             return "data/2.5/weather"
+        case .forecast:
+            return "data/2.5/forecast"
         }
     }
 
     private var queryParameters: [URLQueryItem] {
         switch self {
         case .currentWeather(let coordinates):
-            return [URLQueryItem(name: Constants.Endpoints.latitudeKey, value: String(coordinates.latitude)),
-                    URLQueryItem(name: Constants.Endpoints.longitudeKey, value: String(coordinates.longitude))]
+            return createQueryItemsForCoordinates(coordinates)
+        case .forecast(let coordinates):
+            return createQueryItemsForCoordinates(coordinates)
         }
+    }
+
+    private func createQueryItemsForCoordinates(_ coordinates: Coordinate) -> [URLQueryItem] {
+        [URLQueryItem(name: Constants.Endpoints.latitudeKey, value: String(coordinates.latitude)),
+         URLQueryItem(name: Constants.Endpoints.longitudeKey, value: String(coordinates.longitude))]
     }
 
     var url: URL {

@@ -12,21 +12,9 @@ struct CurrentWeather: Decodable {
     let placeId: Int
     let placeName: String?
 
-    /* Note: I am intentionally ignoring a number of conditions for simplicity and lack of designs to only concentrate on 3 conditions */
     var weatherCondition: WeatherCondition {
         let weatherCode = weather.first?.id ?? 0
-        switch weatherCode {
-        case 200..<600:
-            return .rainy
-        case 800:
-            return .sunny
-        case 801..<900:
-            return .cloudy
-
-        default:
-            return .sunny
-        }
-
+        return WeatherCondition.build(fromCode: weatherCode)
     }
 
     enum CodingKeys: String, CodingKey {

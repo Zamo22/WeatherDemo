@@ -33,7 +33,8 @@ struct WeatherView: View {
     var body: some View {
         TabView {
             ForEach(pages, id: \.self) { coordinate in
-                let viewModel = WeatherViewModel(withLocation: coordinate)
+//                let viewModel = WeatherViewModel(withLocation: coordinate)
+                let viewModel = WeatherViewModel.preview
                 IndividualWeatherView(viewModel: viewModel)
             }
         }
