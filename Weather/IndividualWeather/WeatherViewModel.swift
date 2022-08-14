@@ -7,26 +7,17 @@ import Foundation
 
 class WeatherViewModel: ObservableObject {
     private let client: Client
-    private let locationManager: Locatable
+    private let location: Coordinate
     private var subscriptions = Set<AnyCancellable>()
-
-    var currentLocation: Coordinate?
 
     @Published var currentWeather: CurrentWeather?
 
-    init(withClient client: Client = WeatherClient(),
-         locationManager: Locatable = LocationManager()) {
+    init(withLocation location: Coordinate, client: Client = WeatherClient()) {
+        self.location = location
         self.client = client
-        self.locationManager = locationManager
     }
 
-    func getWeather() {
-        
-//        getCurrentWeather(using: currentLocation)
-    }
-
-
-    private func getCurrentWeather(using location: Coordinate) {
+    func getCurrentWeather() {
         client.fetch(from: .currentWeather(coordinates: location),
                      expectedType: CurrentWeather.self)
         .receive(on: RunLoop.main)

@@ -11,7 +11,8 @@ struct ContentView: View {
         Group {
             switch viewModel.viewState {
             case .loading:
-                Text("Loading")
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
             case .locationError:
                 Text("Error getting location")
             case .permissionDenied:
@@ -32,24 +33,12 @@ struct WeatherView: View {
     var body: some View {
         TabView {
             ForEach(pages, id: \.self) { coordinate in
-                TestView1()
+                let viewModel = WeatherViewModel(withLocation: coordinate)
+                IndividualWeatherView(viewModel: viewModel)
             }
         }
         .tabViewStyle(PageTabViewStyle())
     }
-}
-
-struct TestView1: View {
-    @StateObject var viewModel = WeatherViewModel()
-
-    var body: some View {
-        Text("\(viewModel.currentWeather?.temperatures.temp ?? 0)")
-            .onAppear {
-
-                viewModel.getWeather()
-            }
-    }
-
 }
 
 struct ContentView_Previews: PreviewProvider {

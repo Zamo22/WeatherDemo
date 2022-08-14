@@ -41,8 +41,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate, Locatable {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        let coordinate = Coordinate(longitude: location.coordinate.longitude,
-                                    latitude: location.coordinate.latitude)
+        let coordinate = Coordinate(latitude: location.coordinate.latitude,
+                                    longitude: location.coordinate.longitude)
         internalLocationPublisher.send(coordinate)
     }
 }

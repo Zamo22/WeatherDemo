@@ -5,13 +5,29 @@
 import Foundation
 
 // TODO: Put these sub structs inside CurrentWeather if not reused for other models
-
 struct CurrentWeather: Decodable {
     let coordinates: Coordinate
     let weather: [Weather]
     let temperatures: Temperatures
     let placeId: Int
-    let placeName: String
+    let placeName: String?
+
+    /* Note: I am intentionally ignoring a number of conditions for simplicity and lack of designs to only concentrate on 3 conditions */
+    var weatherCondition: WeatherCondition {
+        let weatherCode = weather.first?.id ?? 0
+        switch weatherCode {
+        case 200..<600:
+            return .rainy
+        case 800:
+            return .sunny
+        case 801..<900:
+            return .cloudy
+
+        default:
+            return .sunny
+        }
+
+    }
 
     enum CodingKeys: String, CodingKey {
         case weather
@@ -23,6 +39,11 @@ struct CurrentWeather: Decodable {
 }
 
 struct Coordinate: Decodable, Hashable {
+    init(latitude: Double, longitude: Double) {
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+
     let longitude: Double
     let latitude: Double
 
@@ -34,15 +55,15 @@ struct Coordinate: Decodable, Hashable {
 struct Weather: Decodable {
     let id: Int
     let main: String
-    let description: String
+    let description: String?
 }
 
 struct Temperatures: Decodable {
     let temp: Double
-    let feelsLike: Double
-    let minTemp: Double
-    let maxTemp: Double
-    let humidity: Int
+    let feelsLike: Double?
+    let minTemp: Double?
+    let maxTemp: Double?
+    let humidity: Int?
 
     enum CodingKeys: String, CodingKey {
         case temp, humidity, feelsLike = "feels_like", minTemp = "temp_min", maxTemp = "temp_max"
