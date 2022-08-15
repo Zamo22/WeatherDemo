@@ -4,7 +4,6 @@
 
 import Foundation
 
-// TODO: Put these sub structs inside CurrentWeather if not reused for other models
 struct CurrentWeather: Decodable {
     let coordinates: Coordinate
     let weather: [Weather]

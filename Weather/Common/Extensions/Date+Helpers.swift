@@ -15,6 +15,6 @@ extension Date {
 
     var day: String {
         DateFormatter()
-            .weekdaySymbols[Calendar.current.component(.weekday, from: self)]
+            .weekdaySymbols[Calendar.current.component(.weekday, from: self) - 1]
     }
 }
