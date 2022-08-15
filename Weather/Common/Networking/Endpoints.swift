@@ -34,7 +34,8 @@ extension Endpoint {
 
     private func createQueryItemsForCoordinates(_ coordinates: Coordinate) -> [URLQueryItem] {
         [URLQueryItem(name: Constants.Endpoints.latitudeKey, value: String(coordinates.latitude)),
-         URLQueryItem(name: Constants.Endpoints.longitudeKey, value: String(coordinates.longitude))]
+         URLQueryItem(name: Constants.Endpoints.longitudeKey, value: String(coordinates.longitude)),
+         URLQueryItem(name: Constants.Endpoints.unitsKey, value: UserDefaults.standard.unitOfMeasurement.rawValue)]
     }
 
     var url: URL {
@@ -56,7 +57,7 @@ private extension Array where Element == URLQueryItem {
     func addingDefaultApiKey() -> Self {
         var items = self
         items.append(URLQueryItem(name: Constants.Endpoints.appIdKey,
-                                 value: Constants.Endpoints.openWeatherApiKey))
+                                  value: Constants.Endpoints.openWeatherApiKey))
         return items
     }
 }

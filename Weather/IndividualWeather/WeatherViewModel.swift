@@ -22,6 +22,7 @@ class WeatherViewModel: ObservableObject {
     init(withLocation location: Coordinate, client: Client = WeatherClient()) {
         self.location = location
         self.client = client
+        getWeather()
     }
 
     func getWeather() {

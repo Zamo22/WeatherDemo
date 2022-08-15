@@ -17,6 +17,7 @@ class MainViewModel: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
 
     @Published var viewState: MainViewState = .loading
+    @Published var pages: [Coordinate] = []
 
     init(locationManager: Locatable = LocationManager()) {
         self.locationManager = locationManager
@@ -31,6 +32,7 @@ class MainViewModel: ObservableObject {
                 self?.handleSubscriptionFinished(with: $0)
             }, receiveValue: { [weak self] in
                 self?.viewState = .loaded(coordinate: $0)
+                self?.buildWeatherPages(with: $0)
             })
             .store(in: &subscriptions)
     }
@@ -54,9 +56,15 @@ class MainViewModel: ObservableObject {
         }
     }
 
+    func refreshIfNeeded() {
+        guard case .loaded(let coordinate) = viewState else {
+            return
+        }
+        buildWeatherPages(with: coordinate)
+    }
+
     // TODO: Use core data here to get favourited locations
-    // Consider returning a different model ? Whatever works best I guess
-    func buildWeatherPages(with currentLocation: Coordinate) -> [Coordinate] {
-        [currentLocation]
+    func buildWeatherPages(with currentLocation: Coordinate) {
+        pages = [currentLocation]
     }
 }

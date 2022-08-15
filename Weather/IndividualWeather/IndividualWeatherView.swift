@@ -28,9 +28,6 @@ struct IndividualWeatherView: View {
                 }
             }
         }
-        .onAppear {
-            viewModel.getWeather()
-        }
     }
 }
 
@@ -44,15 +41,20 @@ struct CurrentWeatherView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
 
-                VStack(spacing: 5) {
-                    Text("\(Int(currentWeather.temperatures.temp))°")
-                        .font(.system(size: 50))
-                        .foregroundColor(.white)
+                VStack(spacing: 16) {
+                    if let place = currentWeather.placeName {
+                        Text(place)
+                            .font(.title)
+                    }
+                    VStack(spacing: 5) {
+                        Text("\(Int(currentWeather.temperatures.temp))°")
+                            .font(.system(size: 50))
 
-                    Text(currentWeather.weather.first?.main ?? "-")
-                        .font(.title)
-                        .foregroundColor(.white)
+                        Text(currentWeather.weather.first?.main ?? "-")
+                            .font(.title3)
+                    }
                 }
+                .foregroundColor(.white)
                 .padding(.top, 50)
             }
 

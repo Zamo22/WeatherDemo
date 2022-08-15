@@ -5,11 +5,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = MainViewModel()
+    @StateObject private var mainViewModel = MainViewModel()
 
     var body: some View {
         Group {
-            switch viewModel.viewState {
+            switch mainViewModel.viewState {
             case .loading:
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())
@@ -17,28 +17,46 @@ struct ContentView: View {
                 Text("Error getting location")
             case .permissionDenied:
                 Text("You have denied permissions")
-            case .loaded(let currentLocation):
-                WeatherView(pages: viewModel
-                    .buildWeatherPages(with: currentLocation))
+            case .loaded:
+                WeatherView()
             }
         }.onAppear {
-            viewModel.getCurrentLocation()
+            mainViewModel.getCurrentLocation()
         }
+        .environmentObject(mainViewModel)
     }
 }
 
 struct WeatherView: View {
-    let pages: [Coordinate]
+    @EnvironmentObject var mainViewModel: MainViewModel
+    @State private var showSettings = false
 
     var body: some View {
-        TabView {
-            ForEach(pages, id: \.self) { coordinate in
-//                let viewModel = WeatherViewModel(withLocation: coordinate)
-                let viewModel = WeatherViewModel.preview
-                IndividualWeatherView(viewModel: viewModel)
+        ZStack(alignment: .topTrailing) {
+            TabView {
+                ForEach(mainViewModel.pages, id: \.self) { coordinate in
+                    let viewModel = WeatherViewModel(withLocation: coordinate)
+                    IndividualWeatherView(viewModel: viewModel)
+                }
+            }
+            .tabViewStyle(PageTabViewStyle())
+
+            Button(action: settingsButtonTapped) {
+                Image(systemName: "ellipsis")
+                    .font(.title2)
+                    .foregroundColor(.white)
+                    .padding([.top, .trailing])
             }
         }
-        .tabViewStyle(PageTabViewStyle())
+        .sheet(isPresented: $showSettings, onDismiss: {
+            mainViewModel.refreshIfNeeded()
+        }) {
+            SettingsView()
+        }
+    }
+
+    func settingsButtonTapped() {
+        showSettings.toggle()
     }
 }
 
