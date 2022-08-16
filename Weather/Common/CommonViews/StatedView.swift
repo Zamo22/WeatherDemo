@@ -22,6 +22,7 @@ struct StatedView<Content: View, LoadedModelType>: View {
         case .loading:
             LoadingView()
         case .loaded(let data):
+            // This will only occurr when the wrong type is passed to this, and will not occurr from a user generated perspective. Force unwrapping for simplicity
             loadedView(data as! LoadedModelType)
         }
     }

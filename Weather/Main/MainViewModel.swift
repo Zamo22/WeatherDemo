@@ -8,18 +8,15 @@ import Combine
 class MainViewModel: ObservableObject {
     private let locationManager: Locatable
     private let savedLocationsService: SavedLocationsProvider
-    private let userDefaults: UserDefaults
     private var subscriptions = Set<AnyCancellable>()
 
     @Published var viewState: ViewState = .loading
     @Published var pages: [Coordinate] = []
 
     init(locationManager: Locatable = LocationManager(),
-         userDefaults: UserDefaults = UserDefaults.standard,
          savedLocationsService: SavedLocationsProvider = SavedLocationsService()) {
         self.locationManager = locationManager
         self.savedLocationsService = savedLocationsService
-        self.userDefaults = userDefaults
     }
 
     // Subscribes to location changes but only picks the first location then stops listening
