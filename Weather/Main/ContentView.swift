@@ -9,19 +9,10 @@ struct ContentView: View {
     @StateObject private var mainViewModel = MainViewModel()
 
     var body: some View {
-        Group {
-            switch mainViewModel.viewState {
-            case .loading:
-                LoadingView()
-            case .error:
-                // Sticking with simple error views for demonstration purposes
-                Text("Error getting location")
-            case .permissionDenied:
-                Text("You have denied permissions")
-            case .loaded:
-                WeatherView(mainViewModel: mainViewModel)
-            }
-        }.onAppear {
+        StatedView<WeatherView, Any>(state: mainViewModel.viewState, loadedView: { _ in
+            WeatherView(mainViewModel: mainViewModel)
+        })
+        .onAppear {
             mainViewModel.getCurrentLocation()
         }
     }

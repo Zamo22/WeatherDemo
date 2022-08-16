@@ -5,20 +5,13 @@
 import Combine
 import Foundation
 
-enum WeatherViewState {
-    case loading
-    case error
-    case loaded(currentWeather: CurrentWeather,
-                forecast: [WeatherForecastItem])
-}
-
 class WeatherViewModel: ObservableObject {
     private let client: Client
     private let savedLocationService: SavedLocationsProvider
     private let location: Coordinate
     private var subscriptions = Set<AnyCancellable>()
 
-    @Published var weatherViewState: WeatherViewState = .loading
+    @Published var weatherViewState: ViewState = .loading
     @Published var showBookmarkButton: Bool
 
     init(withLocation location: Coordinate,
@@ -38,11 +31,11 @@ class WeatherViewModel: ObservableObject {
             .sink(receiveCompletion: { [weak self] in
                 switch $0 {
                 case .failure:
-                    self?.weatherViewState = .error
+                    self?.weatherViewState = .error(.fetchingData)
                 case .finished: break
                 }
             }, receiveValue: { [weak self] current, forecast in
-                self?.weatherViewState = .loaded(currentWeather: current, forecast: forecast)
+                self?.weatherViewState = .loaded(data: (current: current, forecast: forecast))
             })
             .store(in: &subscriptions)
     }
@@ -72,8 +65,9 @@ class WeatherViewModel: ObservableObject {
 
     func saveLocation() {
         var name = "Unknown"
-        if case .loaded(let currentWeather, _)  = weatherViewState,
-            let placeName = currentWeather.placeName {
+        if case .loaded(let data) = weatherViewState,
+           let model = data as? (current: CurrentWeather, forecast: [WeatherForecastItem]),
+           let placeName = model.current.placeName {
             name = placeName
         }
         savedLocationService.add(location: location, name: name)

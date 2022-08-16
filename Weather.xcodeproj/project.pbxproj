@@ -40,6 +40,8 @@
 		174B0A5028AB020C00442DD7 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A4F28AB020C00442DD7 /* LottieView.swift */; };
 		174B0A5228AB022F00442DD7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A5128AB022F00442DD7 /* LoadingView.swift */; };
 		174B0A5428AB02CA00442DD7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 174B0A5328AB02CA00442DD7 /* loader.json */; };
+		174B0A5828ABC50E00442DD7 /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A5728ABC50E00442DD7 /* ViewState.swift */; };
+		174B0A5A28ABC6C800442DD7 /* StatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A5928ABC6C800442DD7 /* StatedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		174B0A4F28AB020C00442DD7 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		174B0A5128AB022F00442DD7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		174B0A5328AB02CA00442DD7 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
+		174B0A5728ABC50E00442DD7 /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
+		174B0A5928ABC6C800442DD7 /* StatedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +229,7 @@
 				174B0A3428A9900700442DD7 /* WeatherCondition.swift */,
 				174B0A3628A993A600442DD7 /* WeatherForecast.swift */,
 				174B0A4728AAE87700442DD7 /* UnitMeasurement.swift */,
+				174B0A5728ABC50E00442DD7 /* ViewState.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 				174B0A5328AB02CA00442DD7 /* loader.json */,
 				174B0A4F28AB020C00442DD7 /* LottieView.swift */,
 				174B0A5128AB022F00442DD7 /* LoadingView.swift */,
+				174B0A5928ABC6C800442DD7 /* StatedView.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -438,6 +444,7 @@
 				174B09ED28A6A1E400442DD7 /* Persistence.swift in Sources */,
 				174B0A5228AB022F00442DD7 /* LoadingView.swift in Sources */,
 				174B0A4028A9C27200442DD7 /* SettingsView.swift in Sources */,
+				174B0A5828ABC50E00442DD7 /* ViewState.swift in Sources */,
 				174B0A4828AAE87700442DD7 /* UnitMeasurement.swift in Sources */,
 				174B0A1E28A7117C00442DD7 /* CurrentWeather.swift in Sources */,
 				174B0A3728A993A600442DD7 /* WeatherForecast.swift in Sources */,
@@ -453,6 +460,7 @@
 				174B0A2B28A9289F00442DD7 /* IndividualWeatherView.swift in Sources */,
 				174B0A2628A90CFE00442DD7 /* MainViewModel.swift in Sources */,
 				174B0A5028AB020C00442DD7 /* LottieView.swift in Sources */,
+				174B0A5A28ABC6C800442DD7 /* StatedView.swift in Sources */,
 				174B0A4428A9CBBC00442DD7 /* UserDefaults+Accessors.swift in Sources */,
 				174B0A4228A9C47F00442DD7 /* SettingsViewModel.swift in Sources */,
 			);

@@ -5,20 +5,13 @@
 import Foundation
 import Combine
 
-enum MainViewState {
-    case loading
-    case permissionDenied
-    case error
-    case loaded(coordinate: Coordinate)
-}
-
 class MainViewModel: ObservableObject {
     private let locationManager: Locatable
     private let savedLocationsService: SavedLocationsProvider
     private let userDefaults: UserDefaults
     private var subscriptions = Set<AnyCancellable>()
 
-    @Published var viewState: MainViewState = .loading
+    @Published var viewState: ViewState = .loading
     @Published var pages: [Coordinate] = []
 
     init(locationManager: Locatable = LocationManager(),
@@ -38,7 +31,7 @@ class MainViewModel: ObservableObject {
             .sink(receiveCompletion: { [weak self] in
                 self?.handleSubscriptionFinished(with: $0)
             }, receiveValue: { [weak self] in
-                self?.viewState = .loaded(coordinate: $0)
+                self?.viewState = .loaded(data: $0)
                 self?.buildWeatherPages(with: $0)
             })
             .store(in: &subscriptions)
@@ -50,7 +43,7 @@ class MainViewModel: ObservableObject {
             .receive(on: RunLoop.main)
             .first(where: { $0 == .denied || $0 == .restricted })
             .sink(receiveValue: { [weak self] _ in
-                self?.viewState = .permissionDenied
+                self?.viewState = .error(.locationPermission)
             })
             .store(in: &subscriptions)
     }
@@ -60,13 +53,14 @@ class MainViewModel: ObservableObject {
         case .finished:
             locationManager.disableLocationUpdates()
         case .failure:
-            viewState = .error
+            viewState = .error(.generic)
         }
     }
 
     // Called externally to trigger a refresh of the view if necessary
     func refreshIfNeeded() {
-        guard case .loaded(let coordinate) = viewState else {
+        guard case .loaded(let data) = viewState,
+                let coordinate = data as? Coordinate else {
             return
         }
         buildWeatherPages(with: coordinate)

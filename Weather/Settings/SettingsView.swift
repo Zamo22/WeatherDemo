@@ -40,7 +40,9 @@ struct SavedLocationsView: View {
     @ObservedObject var viewModel: SettingsViewModel
 
     var body: some View {
-        VStack(spacing: 16) {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Your saved locations")
+            
             ForEach(viewModel.savedLocations, id: \.self) { location in
                 SavedLocationView(savedLocation: location, onDelete: {
                     viewModel.removeSavedLocation(location)

@@ -8,35 +8,28 @@ struct IndividualWeatherView: View {
     @StateObject var viewModel: WeatherViewModel
 
     var body: some View {
-        Group {
-            switch viewModel.weatherViewState {
-            case .loading:
-                LoadingView()
-            case .error:
-                Text("An error occurred")
-            case .loaded(let currentWeather, let forecast):
-                ZStack(alignment: .topLeading) {
-                    ZStack {
-                        Color(currentWeather
-                            .weatherCondition.colorName)
-                        VStack{
-                            CurrentWeatherView(currentWeather: currentWeather)
-                            ForecastView(weatherForecast: forecast)
-                            Spacer()
-                        }
+        StatedView<ZStack, (current: CurrentWeather, forecast: [WeatherForecastItem])>(state: viewModel.weatherViewState, loadedView: { result in
+            ZStack(alignment: .topLeading) {
+                ZStack {
+                    Color(result.current
+                        .weatherCondition.colorName)
+                    VStack{
+                        CurrentWeatherView(currentWeather: result.current)
+                        ForecastView(weatherForecast: result.forecast)
+                        Spacer()
                     }
+                }
 
-                    if viewModel.showBookmarkButton {
-                        Button(action: bookmarkButtonTapped) {
-                            Image(systemName: "bookmark")
-                                .font(.title2)
-                                .foregroundColor(.white)
-                                .padding([.top, .leading])
-                        }
+                if viewModel.showBookmarkButton {
+                    Button(action: bookmarkButtonTapped) {
+                        Image(systemName: "bookmark")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .padding([.top, .leading])
                     }
                 }
             }
-        }
+        })
     }
 
     func bookmarkButtonTapped() {
