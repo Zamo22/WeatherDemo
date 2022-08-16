@@ -74,6 +74,7 @@ class MainViewModel: ObservableObject {
 
     // Sets up subscriber to listen to saved locations from Core Data service and call function to build weather pages accordingly
     func buildWeatherPages(with currentLocation: Coordinate) {
+        pages = [currentLocation]
         savedLocationsService.savedLocationPublisher
             .receive(on: RunLoop.main)
             .replaceError(with: [])
