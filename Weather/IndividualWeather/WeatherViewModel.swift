@@ -27,7 +27,7 @@ class WeatherViewModel: ObservableObject {
 
     func getWeather() {
         getCurrentWeather()
-            .combineLatest(getWeatherForecast())
+            .zip(getWeatherForecast())
             .sink(receiveCompletion: { [weak self] in
                 switch $0 {
                 case .failure:
