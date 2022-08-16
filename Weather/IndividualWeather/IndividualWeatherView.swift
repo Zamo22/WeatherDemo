@@ -5,10 +5,11 @@
 import SwiftUI
 
 struct IndividualWeatherView: View {
+    private typealias MyModel = (current: CurrentWeather, forecast: [WeatherForecastItem])
     @StateObject var viewModel: WeatherViewModel
 
     var body: some View {
-        StatedView<ZStack, (current: CurrentWeather, forecast: [WeatherForecastItem])>(state: viewModel.weatherViewState, loadedView: { result in
+        StatedView(state: viewModel.weatherViewState) { (result: MyModel) -> ZStack in
             ZStack(alignment: .topLeading) {
                 ZStack {
                     Color(result.current
@@ -29,7 +30,7 @@ struct IndividualWeatherView: View {
                     }
                 }
             }
-        })
+        }
     }
 
     func bookmarkButtonTapped() {
