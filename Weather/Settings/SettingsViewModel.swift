@@ -24,6 +24,11 @@ class SettingsViewModel: ObservableObject {
     }
 
     // Sets up subscriber to update user defaults when the picker is changed, first is ignored to ignore the event published on initial setting of the value
+
+    /* TODO: There seems to be an issue here where changing this value does not immediately update the related views.
+     For now, I have deleted the related code for doing so, the change will only reflect once you restart the app.
+     Investigation will be done if time permits to see where the issue lies
+     */
     private func handleUnitOfMeasurementUpdates() {
         $unitOfMeasurement
             .dropFirst()
