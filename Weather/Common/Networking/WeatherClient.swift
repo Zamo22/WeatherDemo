@@ -14,6 +14,7 @@ class WeatherClient: Client {
         URLSession.shared.dataTaskPublisher(for: endpoint.url)
             .map {$0.data}
             .decode(type: T.self, decoder: decoder)
+            .receive(on: RunLoop.main)
             .eraseToAnyPublisher()
     }
 

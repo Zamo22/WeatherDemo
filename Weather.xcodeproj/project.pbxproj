@@ -33,6 +33,13 @@
 		174B0A4028A9C27200442DD7 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A3F28A9C27200442DD7 /* SettingsView.swift */; };
 		174B0A4228A9C47F00442DD7 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A4128A9C47F00442DD7 /* SettingsViewModel.swift */; };
 		174B0A4428A9CBBC00442DD7 /* UserDefaults+Accessors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A4328A9CBBC00442DD7 /* UserDefaults+Accessors.swift */; };
+		174B0A4628AA5FA200442DD7 /* SavedLocationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A4528AA5FA100442DD7 /* SavedLocationsService.swift */; };
+		174B0A4828AAE87700442DD7 /* UnitMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A4728AAE87700442DD7 /* UnitMeasurement.swift */; };
+		174B0A4A28AAEB7100442DD7 /* Array+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A4928AAEB7100442DD7 /* Array+Helpers.swift */; };
+		174B0A4D28AB01D800442DD7 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 174B0A4C28AB01D800442DD7 /* Lottie */; };
+		174B0A5028AB020C00442DD7 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A4F28AB020C00442DD7 /* LottieView.swift */; };
+		174B0A5228AB022F00442DD7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174B0A5128AB022F00442DD7 /* LoadingView.swift */; };
+		174B0A5428AB02CA00442DD7 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 174B0A5328AB02CA00442DD7 /* loader.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +89,12 @@
 		174B0A3F28A9C27200442DD7 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		174B0A4128A9C47F00442DD7 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		174B0A4328A9CBBC00442DD7 /* UserDefaults+Accessors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Accessors.swift"; sourceTree = "<group>"; };
+		174B0A4528AA5FA100442DD7 /* SavedLocationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedLocationsService.swift; sourceTree = "<group>"; };
+		174B0A4728AAE87700442DD7 /* UnitMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitMeasurement.swift; sourceTree = "<group>"; };
+		174B0A4928AAEB7100442DD7 /* Array+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Helpers.swift"; sourceTree = "<group>"; };
+		174B0A4F28AB020C00442DD7 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		174B0A5128AB022F00442DD7 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		174B0A5328AB02CA00442DD7 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +102,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				174B0A4D28AB01D800442DD7 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +189,7 @@
 		174B0A1228A7088B00442DD7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				174B0A4E28AB01FC00442DD7 /* CommonViews */,
 				174B0A3B28A9B2BE00442DD7 /* Extensions */,
 				174B0A2128A7234000442DD7 /* Location */,
 				174B0A1428A709BA00442DD7 /* Networking */,
@@ -189,6 +204,7 @@
 			children = (
 				174B09EE28A6A1E400442DD7 /* Weather.xcdatamodeld */,
 				174B09EC28A6A1E400442DD7 /* Persistence.swift */,
+				174B0A4528AA5FA100442DD7 /* SavedLocationsService.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -208,6 +224,7 @@
 				174B0A1D28A7117C00442DD7 /* CurrentWeather.swift */,
 				174B0A3428A9900700442DD7 /* WeatherCondition.swift */,
 				174B0A3628A993A600442DD7 /* WeatherForecast.swift */,
+				174B0A4728AAE87700442DD7 /* UnitMeasurement.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,6 +268,7 @@
 			children = (
 				174B0A3C28A9B2CA00442DD7 /* Date+Helpers.swift */,
 				174B0A4328A9CBBC00442DD7 /* UserDefaults+Accessors.swift */,
+				174B0A4928AAEB7100442DD7 /* Array+Helpers.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -262,6 +280,16 @@
 				174B0A4128A9C47F00442DD7 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		174B0A4E28AB01FC00442DD7 /* CommonViews */ = {
+			isa = PBXGroup;
+			children = (
+				174B0A5328AB02CA00442DD7 /* loader.json */,
+				174B0A4F28AB020C00442DD7 /* LottieView.swift */,
+				174B0A5128AB022F00442DD7 /* LoadingView.swift */,
+			);
+			path = CommonViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,6 +308,9 @@
 			dependencies = (
 			);
 			name = Weather;
+			packageProductDependencies = (
+				174B0A4C28AB01D800442DD7 /* Lottie */,
+			);
 			productName = Weather;
 			productReference = 174B09E028A6A1E000442DD7 /* Weather.app */;
 			productType = "com.apple.product-type.application";
@@ -352,6 +383,9 @@
 				Base,
 			);
 			mainGroup = 174B09D728A6A1E000442DD7;
+			packageReferences = (
+				174B0A4B28AB01D800442DD7 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 174B09E128A6A1E000442DD7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -369,6 +403,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				174B09EB28A6A1E400442DD7 /* Preview Assets.xcassets in Resources */,
+				174B0A5428AB02CA00442DD7 /* loader.json in Resources */,
 				174B09E828A6A1E400442DD7 /* Assets.xcassets in Resources */,
 				174B0A3028A956CA00442DD7 /* currentWeather.json in Resources */,
 				174B0A3A28A9AE0F00442DD7 /* weatherForecast.json in Resources */,
@@ -401,18 +436,23 @@
 				174B0A2028A717D400442DD7 /* WeatherViewModel.swift in Sources */,
 				174B0A2328A7236000442DD7 /* LocationManager.swift in Sources */,
 				174B09ED28A6A1E400442DD7 /* Persistence.swift in Sources */,
+				174B0A5228AB022F00442DD7 /* LoadingView.swift in Sources */,
 				174B0A4028A9C27200442DD7 /* SettingsView.swift in Sources */,
+				174B0A4828AAE87700442DD7 /* UnitMeasurement.swift in Sources */,
 				174B0A1E28A7117C00442DD7 /* CurrentWeather.swift in Sources */,
 				174B0A3728A993A600442DD7 /* WeatherForecast.swift in Sources */,
 				174B0A3528A9900700442DD7 /* WeatherCondition.swift in Sources */,
 				174B0A1B28A70E1000442DD7 /* WeatherClient.swift in Sources */,
+				174B0A4628AA5FA200442DD7 /* SavedLocationsService.swift in Sources */,
 				174B0A3D28A9B2CA00442DD7 /* Date+Helpers.swift in Sources */,
 				174B09E628A6A1E000442DD7 /* ContentView.swift in Sources */,
 				174B09E428A6A1E000442DD7 /* WeatherApp.swift in Sources */,
+				174B0A4A28AAEB7100442DD7 /* Array+Helpers.swift in Sources */,
 				174B0A1628A709C300442DD7 /* Endpoints.swift in Sources */,
 				174B0A1828A709DD00442DD7 /* Constants.swift in Sources */,
 				174B0A2B28A9289F00442DD7 /* IndividualWeatherView.swift in Sources */,
 				174B0A2628A90CFE00442DD7 /* MainViewModel.swift in Sources */,
+				174B0A5028AB020C00442DD7 /* LottieView.swift in Sources */,
 				174B0A4428A9CBBC00442DD7 /* UserDefaults+Accessors.swift in Sources */,
 				174B0A4228A9C47F00442DD7 /* SettingsViewModel.swift in Sources */,
 			);
@@ -737,6 +777,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		174B0A4B28AB01D800442DD7 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		174B0A4C28AB01D800442DD7 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 174B0A4B28AB01D800442DD7 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		174B09EE28A6A1E400442DD7 /* Weather.xcdatamodeld */ = {

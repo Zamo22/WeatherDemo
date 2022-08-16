@@ -5,37 +5,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    // This should be injected into the view, example of this is done in `IndividualWeatherView`. Keeping it like this for now for simplicity purposes
     @StateObject private var mainViewModel = MainViewModel()
 
     var body: some View {
         Group {
             switch mainViewModel.viewState {
             case .loading:
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-            case .locationError:
+                LoadingView()
+            case .error:
+                // Sticking with simple error views for demonstration purposes
                 Text("Error getting location")
             case .permissionDenied:
                 Text("You have denied permissions")
             case .loaded:
-                WeatherView()
+                WeatherView(mainViewModel: mainViewModel)
             }
         }.onAppear {
             mainViewModel.getCurrentLocation()
         }
-        .environmentObject(mainViewModel)
     }
 }
 
 struct WeatherView: View {
-    @EnvironmentObject var mainViewModel: MainViewModel
+    @ObservedObject var mainViewModel: MainViewModel
     @State private var showSettings = false
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
             TabView {
-                ForEach(mainViewModel.pages, id: \.self) { coordinate in
-                    let viewModel = WeatherViewModel(withLocation: coordinate)
+                ForEach(Array(mainViewModel.pages.enumerated()), id: \.element) { index, coordinate in
+                    /* Intentionally initiliazing the view model here, this will call the API on initialisation and results in a better user interface since the other Weather pages will already be loaded. Will not run on appear only */
+                    let viewModel = WeatherViewModel(withLocation: coordinate, isCurrentLocation: index == 0)
                     IndividualWeatherView(viewModel: viewModel)
                 }
             }

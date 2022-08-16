@@ -8,7 +8,8 @@ import Combine
 extension WeatherViewModel {
     static let preview: WeatherViewModel = {
         let defaultCoordinate = Coordinate(latitude: 0, longitude: 0)
-        return WeatherViewModel(withLocation: defaultCoordinate, client: PreviewClient())
+        return WeatherViewModel(withLocation: defaultCoordinate, client: PreviewClient(),
+                                isCurrentLocation: true)
     }()
 }
 

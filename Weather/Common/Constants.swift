@@ -18,5 +18,6 @@ enum Constants {
 
     enum Storage {
         static let weatherMeasurementKey = "weatherMeasurement"
+        static let savedLocationEntityName = "SavedLocation"
     }
 }

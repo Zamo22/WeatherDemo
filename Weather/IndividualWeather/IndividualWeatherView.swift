@@ -11,23 +11,36 @@ struct IndividualWeatherView: View {
         Group {
             switch viewModel.weatherViewState {
             case .loading:
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle())
-                // TODO: Use a lottie animation here
+                LoadingView()
             case .error:
                 Text("An error occurred")
             case .loaded(let currentWeather, let forecast):
-                ZStack {
-                    Color(currentWeather
-                        .weatherCondition.colorName)
-                    VStack{
-                        CurrentWeatherView(currentWeather: currentWeather)
-                        ForecastView(weatherForecast: forecast)
-                        Spacer()
+                ZStack(alignment: .topLeading) {
+                    ZStack {
+                        Color(currentWeather
+                            .weatherCondition.colorName)
+                        VStack{
+                            CurrentWeatherView(currentWeather: currentWeather)
+                            ForecastView(weatherForecast: forecast)
+                            Spacer()
+                        }
+                    }
+
+                    if viewModel.showBookmarkButton {
+                        Button(action: bookmarkButtonTapped) {
+                            Image(systemName: "bookmark")
+                                .font(.title2)
+                                .foregroundColor(.white)
+                                .padding([.top, .leading])
+                        }
                     }
                 }
             }
         }
+    }
+
+    func bookmarkButtonTapped() {
+        viewModel.saveLocation()
     }
 }
 
