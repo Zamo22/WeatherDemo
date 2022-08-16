@@ -20,7 +20,6 @@ class MainViewModel: ObservableObject {
 
     @Published var viewState: MainViewState = .loading
     @Published var pages: [Coordinate] = []
-    @Published var unitOfMeasurement: UnitMeasurement
 
     init(locationManager: Locatable = LocationManager(),
          userDefaults: UserDefaults = UserDefaults.standard,
@@ -28,7 +27,6 @@ class MainViewModel: ObservableObject {
         self.locationManager = locationManager
         self.savedLocationsService = savedLocationsService
         self.userDefaults = userDefaults
-        self.unitOfMeasurement = userDefaults.unitOfMeasurement
     }
 
     // Subscribes to location changes but only picks the first location then stops listening
@@ -72,8 +70,6 @@ class MainViewModel: ObservableObject {
             return
         }
         buildWeatherPages(with: coordinate)
-        let newMeasure = userDefaults.unitOfMeasurement
-        unitOfMeasurement = newMeasure
     }
 
     // Sets up subscriber to listen to saved locations from Core Data service and call function to build weather pages accordingly

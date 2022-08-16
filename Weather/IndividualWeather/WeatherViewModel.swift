@@ -47,7 +47,7 @@ class WeatherViewModel: ObservableObject {
             .store(in: &subscriptions)
     }
 
-    private func getCurrentWeather() -> AnyPublisher<CurrentWeather, Error>{
+    private func getCurrentWeather() -> AnyPublisher<CurrentWeather, Error> {
         client.fetch(from: .currentWeather(coordinates: location),
                      expectedType: CurrentWeather.self)
     }
